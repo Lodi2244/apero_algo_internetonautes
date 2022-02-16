@@ -4,25 +4,29 @@ a = [
   [7,8,9]
 ]
 
-def solution(matrix)
-    diagonal_mirroring(vertical_mirroring(matrix))
+def solution(a)
+    length = a.length - 1
+    diagonal_mirroring(vertical_mirroring(a, length), length)
 end
 
-def vertical_mirroring(matrix)
-    matrix.each_with_index do |_row, index|
-        matrix[index][0], matrix[index][-1] = matrix[index][-1], matrix[index][0]
+def vertical_mirroring(matrix, length)
+    matrix.each_with_index do |row, index|
+        row.each_with_index do |_cell, column|
+            break if column == length - column || column > length / 2
+            matrix[index][column], matrix[index][(length) - column] = 
+            matrix[index][(length) - column], matrix[index][column]
+        end 
     end
 end
 
-def diagonal_mirroring(matrix)
-    length = matrix.length - 1
+def diagonal_mirroring(matrix, length)
     matrix.each_with_index do |row, index|
         row.each_with_index do |_cell, column|
-            break if  matrix[index][column] == matrix[length - column][length - index]
-            matrix[index][column], matrix[length - column][length - index] = matrix[length - column][length - index], matrix[index][column]
+            break if  [index, column] == [(length - column), (length - index)]
+            matrix[index][column], matrix[length - column][length - index] =
+            matrix[length - column][length - index], matrix[index][column]
         end
     end
 end
 
 
-p swap_positions(matrix, row, column)

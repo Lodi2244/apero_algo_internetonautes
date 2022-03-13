@@ -1,4 +1,5 @@
 def solution(array)
+  return 1 if array.empty?
   positives = array.select {|value| value.positive? }
   min = positives.min || 2
   missings = (min..array.length).to_a
@@ -18,3 +19,4 @@ p solution([1, 2, 0]) # => 3
 p solution([5, 3, 4, 6, -2, 7]) # => 2
 p solution([0, 10, 2, -10, -20]) # => 1
 p solution([-10, -20, -2, -5]) # => 1
+p solution([]) # => 1
